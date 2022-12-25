@@ -1,16 +1,15 @@
 import express from "express";
-import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
 
 import home from "./routes/home.js";
 
 const app = express();
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 app.use("/", home);
 
-app.use(bodyParser.json({ limit: "30mb", extended: true }));
-app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 
 const CONNECTION_URL =
@@ -27,4 +26,3 @@ mongoose
     app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`))
   )
   .catch((error) => console.log(error.message, "----ERROR MESSAGE----"));
-
